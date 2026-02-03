@@ -1,0 +1,5 @@
+Experiment
+==================
+
+A user inputs a color and his/her name on a webpage.
+Submitting  the form shows the user's name in bold & mentioned color.
