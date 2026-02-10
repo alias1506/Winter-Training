@@ -149,6 +149,22 @@ public class StudentDAL {
         }
     }
 
+    public Student getStudentById(int id) throws Exception {
+        String sql = "SELECT * FROM students WHERE id=?";
+
+        try (Connection con = getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
+            }
+        }
+        return null;
+    }
+
     private Student map(ResultSet rs) throws Exception {
         Student s = new Student();
         s.setId(rs.getInt("id"));

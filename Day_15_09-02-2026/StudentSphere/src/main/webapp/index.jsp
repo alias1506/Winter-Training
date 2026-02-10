@@ -100,6 +100,12 @@
                 animation: slideIn 0.3s ease-out;
             }
 
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
             /* Dark Mode Styles */
             body.dark {
                 background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
@@ -318,6 +324,14 @@
                         </svg>
                         Refresh
                     </button>
+                    <button onclick="exportToExcel()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Export Excel
+                    </button>
                     <button onclick="openAddModal()"
                         class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,7 +426,7 @@
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <input type="text" id="name" required
+                                <input type="text" id="name" required placeholder="Enter student's full name"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                             </div>
                         </div>
@@ -428,7 +442,7 @@
                                                 d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="roll" required
+                                    <input type="text" id="roll" required placeholder="e.g. 101"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -442,7 +456,7 @@
                                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="reg" required
+                                    <input type="text" id="reg" required placeholder="e.g. REG202401"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -458,7 +472,7 @@
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <input type="email" id="email" required
+                                <input type="email" id="email" required placeholder="example@college.edu"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                             </div>
                         </div>
@@ -473,7 +487,7 @@
                                             d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                     </svg>
                                 </div>
-                                <input type="tel" id="phone" required
+                                <input type="tel" id="phone" required placeholder="e.g. +91 98765 43210"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                             </div>
                         </div>
@@ -503,7 +517,7 @@
                                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <input type="number" id="sem" min="1" max="8" required
+                                    <input type="number" id="sem" min="1" max="8" required placeholder="1-8"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -552,7 +566,7 @@
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <input type="text" id="ename"
+                                <input type="text" id="ename" placeholder="Update full name"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                             </div>
                         </div>
@@ -568,7 +582,7 @@
                                                 d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="eroll"
+                                    <input type="text" id="eroll" placeholder="Update roll number"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -582,7 +596,7 @@
                                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="ereg"
+                                    <input type="text" id="ereg" placeholder="Update registration number"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -598,7 +612,7 @@
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <input type="email" id="eemail" disabled
+                                <input type="email" id="eemail" disabled placeholder="Email cannot be changed"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed">
                             </div>
                         </div>
@@ -613,7 +627,7 @@
                                             d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                     </svg>
                                 </div>
-                                <input type="tel" id="ephone"
+                                <input type="tel" id="ephone" placeholder="Update phone number"
                                     class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                             </div>
                         </div>
@@ -629,7 +643,7 @@
                                                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="estream"
+                                    <input type="text" id="estream" placeholder="e.g. CSE"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -643,7 +657,7 @@
                                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <input type="number" id="esem" min="1" max="8"
+                                    <input type="number" id="esem" min="1" max="8" placeholder="1-8"
                                         class="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                                 </div>
                             </div>
@@ -668,9 +682,9 @@
         <div id="viewModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
             <div class="modal-backdrop" onclick="closeViewModal()"></div>
             <div class="flex items-center justify-center min-h-screen p-4">
-                <div class="modal-content relative bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 z-50">
+                <div class="modal-content relative bg-white rounded-xl shadow-2xl max-w-4xl w-full p-6 z-50">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-lg font-bold text-gray-900">Student Details</h2>
+                        <h2 class="text-xl font-bold text-gray-900">Student Profile & Identity</h2>
                         <button onclick="closeViewModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -679,124 +693,139 @@
                         </button>
                     </div>
 
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-2">Full Name</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                        <!-- Left Side: QR Identity -->
+                        <div class="md:col-span-5 flex flex-col items-center gap-6 border-r border-gray-100 pr-8">
+                            <div class="text-center w-full">
+                                <div id="vQRCodeContainer"
+                                    class="p-6 bg-white border-2 border-purple-100 rounded-2xl shadow-inner inline-block">
+                                    <img id="vQRImage" class="w-48 h-48" alt="Student QR Identity">
                                 </div>
-                                <input type="text" id="vname" readonly
-                                    class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
+                                <p
+                                    class="mt-4 text-xs text-gray-500 font-medium uppercase tracking-widest leading-relaxed">
+                                    Identity Verified<br>StudentSphere Secure QR</p>
                             </div>
-                        </div>
 
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-900 mb-2">Roll Number</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="vroll" readonly
-                                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-900 mb-2">Registration No</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="vreg" readonly
-                                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-2">Email Address</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <input type="email" id="vemail" readonly
-                                    class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-2">Phone Number</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                    </svg>
-                                </div>
-                                <input type="tel" id="vphone" readonly
-                                    class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-3">
-                            <div class="col-span-2">
-                                <label class="block text-sm font-medium text-gray-900 mb-2">Stream</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="vstream" readonly
-                                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-900 mb-2">Semester</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="vsem" readonly
-                                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-700 pointer-events-none">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pt-3">
-                            <button type="button" onclick="closeViewModal()"
-                                class="w-full px-4 py-2 text-sm bg-red-50 text-red-600 border border-red-200 rounded-lg font-medium hover:bg-red-100 transition-colors">
-                                Close
+                            <button id="vDownloadBtn"
+                                class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M7 10l5 5m0 0l5-5m-5 5V3" />
+                                </svg>
+                                Download QR Identity
                             </button>
+                        </div>
+
+                        <!-- Right Side: Details -->
+                        <div class="md:col-span-7 space-y-5">
+                            <div>
+                                <label
+                                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full
+                                    Name</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="vname" readonly
+                                        class="w-full pl-10 pr-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Roll
+                                        Number</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="vroll" readonly
+                                            class="w-full pl-10 pr-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 focus:outline-none">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Registration
+                                        No</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="vreg" readonly
+                                            class="w-full pl-10 pr-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label
+                                    class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email
+                                    Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <input type="email" id="vemail" readonly
+                                        class="w-full pl-10 pr-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Phone</label>
+                                    <input type="text" id="vphone" readonly
+                                        class="w-full px-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 focus:outline-none">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label
+                                            class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sem</label>
+                                        <input type="text" id="vsem" readonly
+                                            class="w-full px-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 text-center focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Stream</label>
+                                        <input type="text" id="vstream" readonly
+                                            class="w-full px-3 py-2.5 text-sm font-medium border border-gray-100 rounded-xl bg-gray-50/50 text-gray-900 text-center focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex justify-end">
+                                <button type="button" onclick="closeViewModal()"
+                                    class="px-6 py-2 text-xs font-bold text-red-500 transition-all uppercase tracking-[0.2em]">
+                                    Close Profile
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
 
         <script>
             const searchEl = document.getElementById("search");
@@ -905,16 +934,50 @@
                 editForm.reset();
             }
 
-            function openViewModal(s) {
-                document.getElementById('vname').value = s.name;
-                document.getElementById('vroll').value = s.roll_no;
-                document.getElementById('vreg').value = s.registration_no;
-                document.getElementById('vemail').value = s.email;
-                document.getElementById('vphone').value = s.phone;
-                document.getElementById('vstream').value = s.stream;
-                document.getElementById('vsem').value = s.semester;
-                viewModal.classList.remove("hidden");
-                document.body.style.overflow = "hidden";
+            function openViewModal(id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "view-student?id=" + id, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        try {
+                            var s = JSON.parse(xhr.responseText);
+                            document.getElementById('vname').value = s.name;
+                            document.getElementById('vroll').value = s.roll_no;
+                            document.getElementById('vreg').value = s.registration_no;
+                            document.getElementById('vemail').value = s.email;
+                            document.getElementById('vphone').value = s.phone;
+                            document.getElementById('vstream').value = s.stream;
+                            document.getElementById('vsem').value = s.semester;
+
+                            // Set up QR Code for the profile
+                            const qrImage = document.getElementById("vQRImage");
+                            const downloadBtn = document.getElementById("vDownloadBtn");
+                            const qrContent = `Name: ${s.name}\nRoll No: ${s.roll_no}\nReg No: ${s.registration_no}\nSemester: ${s.semester}\nStream: ${s.stream}`;
+                            const qrUrl = `generate-qr?text=${encodeURIComponent(qrContent)}`;
+
+                            qrImage.src = qrUrl;
+                            downloadBtn.onclick = () => {
+                                const link = document.createElement("a");
+                                link.href = qrUrl;
+                                link.download = `${s.name}_${s.roll_no}_QR.png`;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            };
+
+                            viewModal.classList.remove("hidden");
+                            document.body.style.overflow = "hidden";
+                        } catch (e) {
+                            console.error("Error parsing student data:", e);
+                        }
+                    } else {
+                        Swal.fire('Error', 'Failed to fetch student details', 'error');
+                    }
+                };
+                xhr.onerror = function () {
+                    Swal.fire('Error', 'Network error while fetching details', 'error');
+                };
+                xhr.send();
             }
 
             function closeViewModal() {
@@ -951,12 +1014,17 @@
                         </td>
                     </tr>`;
 
-                fetch("student?q=" + encodeURIComponent(q))
-                    .then(r => {
-                        if (!r.ok) return r.json().then(err => { throw new Error(err.error || "Server Error") });
-                        return r.json();
-                    })
-                    .then(data => {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "list-students?q=" + encodeURIComponent(q), true);
+
+                xhr.onload = function () {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+
+                        if (xhr.status !== 200) {
+                            throw new Error(data.error || "Server Error");
+                        }
+
                         if (data.error) throw new Error(data.error);
                         tableBody.innerHTML = "";
                         if (!Array.isArray(data)) return;
@@ -974,31 +1042,31 @@
                         <td class="px-6 py-4 text-sm text-gray-600">${s.semester}</td>
                         <td class="px-6 py-4 text-sm">
                             <div class="flex gap-2">
-                                    <button onclick='openViewModal(${JSON.stringify(s)})' 
-                                            class="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">
+                                    <button onclick='openViewModal(${s.id})' 
+                                            class="p-2 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded-lg transition-colors" title="View Details">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </button>
                                     <button onclick='openEditModal(${JSON.stringify(s)})' 
-                                            class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                            class="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors" title="Edit Student">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>
                                     </button>
                                 <button onclick="deleteStudent(${s.id})" 
-                                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                        class="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors" title="Delete Student">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                     </svg>
                                 </button>
+
                             </div>
                         </td>
                     </tr>`;
                         });
-                    })
-                    .catch(err => {
+                    } catch (err) {
                         console.error("Failed to load students:", err);
                         tableBody.innerHTML = `
                             <tr>
@@ -1012,7 +1080,26 @@
                                     </div>
                                 </td>
                             </tr>`;
-                    });
+                    }
+                };
+
+                xhr.onerror = function () {
+                    console.error("Failed to load students: Network error");
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center gap-3">
+                                    <svg class="w-16 h-16 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div class="text-red-500 font-medium">Failed to load students</div>
+                                    <div class="text-gray-400 text-sm">Network error</div>
+                                </div>
+                            </td>
+                        </tr>`;
+                };
+
+                xhr.send();
             }
 
             /* CREATE */
@@ -1024,25 +1111,28 @@
 
                 const data = {
                     name: document.getElementById("name").value,
-                    rollNo: document.getElementById("roll").value,
-                    registrationNo: document.getElementById("reg").value,
+                    roll_no: document.getElementById("roll").value,
+                    registration_no: document.getElementById("reg").value,
                     email: document.getElementById("email").value,
                     phone: document.getElementById("phone").value,
                     stream: document.getElementById("stream").value,
                     semester: parseInt(document.getElementById("sem").value) || 0
                 };
 
-                fetch("student", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-                    .then(r => {
-                        if (!r.ok) return r.json().then(err => { throw new Error(err.error || "Server Error") });
-                        return r.json();
-                    })
-                    .then(data => {
-                        if (data.error) throw new Error(data.error);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "add-student", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    try {
+                        var responseData = JSON.parse(xhr.responseText);
+
+                        if (xhr.status !== 200) {
+                            throw new Error(responseData.error || "Server Error");
+                        }
+
+                        if (responseData.error) throw new Error(responseData.error);
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
@@ -1055,8 +1145,7 @@
                         closeAddModal();
                         addForm.reset();
                         loadStudents();
-                    })
-                    .catch(err => {
+                    } catch (err) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -1066,20 +1155,22 @@
                                 confirmButton: 'swal2-confirm'
                             }
                         });
-                    });
-            }
+                    }
+                };
 
-            /* OPEN EDIT */
-            function openEdit(s) {
-                document.getElementById("eid").value = s.id;
-                document.getElementById("ename").value = s.name;
-                document.getElementById("eroll").value = s.roll_no;
-                document.getElementById("ereg").value = s.registration_no;
-                document.getElementById("eemail").value = s.email;
-                document.getElementById("ephone").value = s.phone;
-                document.getElementById("estream").value = s.stream;
-                document.getElementById("esem").value = s.semester;
-                openEditModal();
+                xhr.onerror = function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Network error',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'swal2-confirm'
+                        }
+                    });
+                };
+
+                xhr.send(JSON.stringify(data));
             }
 
             /* UPDATE */
@@ -1094,17 +1185,20 @@
                     semester: parseInt(document.getElementById("esem").value) || 0
                 };
 
-                fetch("student?action=update", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-                    .then(r => {
-                        if (!r.ok) return r.json().then(err => { throw new Error(err.error || "Server Error") });
-                        return r.json();
-                    })
-                    .then(data => {
-                        if (data.error) throw new Error(data.error);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "edit-student", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    try {
+                        var responseData = JSON.parse(xhr.responseText);
+
+                        if (xhr.status !== 200) {
+                            throw new Error(responseData.error || "Server Error");
+                        }
+
+                        if (responseData.error) throw new Error(responseData.error);
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Updated!',
@@ -1116,8 +1210,7 @@
                         });
                         closeEditModal();
                         loadStudents();
-                    })
-                    .catch(err => {
+                    } catch (err) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -1127,7 +1220,22 @@
                                 confirmButton: 'swal2-confirm'
                             }
                         });
+                    }
+                };
+
+                xhr.onerror = function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Network error',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'swal2-confirm'
+                        }
                     });
+                };
+
+                xhr.send(JSON.stringify(data));
             }
 
             /* DELETE */
@@ -1146,17 +1254,22 @@
                     reverseButtons: true
                 }).then(r => {
                     if (r.isConfirmed) {
-                        fetch("delete-student", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: "id=" + id
-                        })
-                            .then(r => {
-                                if (!r.ok) return r.json().then(err => { throw new Error(err.error || "Server Error") });
-                                return r.json();
-                            })
-                            .then(data => {
-                                if (data.status === 'error' || data.error) throw new Error(data.message || data.error || "Failed to delete");
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "delete-student", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                        xhr.onload = function () {
+                            try {
+                                var data = JSON.parse(xhr.responseText);
+
+                                if (xhr.status !== 200) {
+                                    throw new Error(data.error || "Server Error");
+                                }
+
+                                if (data.status === 'error' || data.error) {
+                                    throw new Error(data.message || data.error || "Failed to delete");
+                                }
+
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Deleted!',
@@ -1167,8 +1280,7 @@
                                     }
                                 });
                                 loadStudents();
-                            })
-                            .catch(err => {
+                            } catch (err) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error',
@@ -1178,9 +1290,99 @@
                                         confirmButton: 'swal2-confirm'
                                     }
                                 });
+                            }
+                        };
+
+                        xhr.onerror = function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Network error',
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'swal2-confirm'
+                                }
                             });
+                        };
+
+                        xhr.send("id=" + id);
                     }
                 });
+            }
+
+            function exportToExcel() {
+                const loader = document.getElementById('globalLoader');
+                loader.classList.remove('hidden');
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'export-students', true);
+                xhr.responseType = 'blob';
+
+                const isDark = document.body.classList.contains('dark');
+                const swalOptions = {
+                    background: isDark ? '#1f2937' : '#ffffff',
+                    color: isDark ? '#f3f4f6' : '#111827',
+                    customClass: {
+                        confirmButton: 'swal2-confirm',
+                        popup: isDark ? 'swal2-dark-popup' : ''
+                    }
+                };
+
+                xhr.onload = function () {
+                    loader.classList.add('hidden');
+                    if (xhr.status === 200) {
+                        const blob = xhr.response;
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+
+                        // Extract filename from header if possible
+                        const disposition = xhr.getResponseHeader('Content-Disposition');
+                        let filename = "ExportedStudentsData.xlsx";
+                        if (disposition && disposition.indexOf('attachment') !== -1) {
+                            const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                            const matches = filenameRegex.exec(disposition);
+                            if (matches != null && matches[1]) {
+                                filename = matches[1].replace(/['"]/g, '');
+                            }
+                        }
+
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Export Successful!',
+                            text: 'Student data has been exported successfully.',
+                            confirmButtonText: 'Great!',
+                            ...swalOptions
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Export Failed',
+                            text: 'An error occurred while exporting data.',
+                            confirmButtonText: 'Try Again',
+                            ...swalOptions
+                        });
+                    }
+                };
+
+                xhr.onerror = function () {
+                    loader.classList.add('hidden');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Network Error',
+                        text: 'Could not connect to the server.',
+                        confirmButtonText: 'OK',
+                        ...swalOptions
+                    });
+                };
+
+                xhr.send();
             }
 
             // Close modals on ESC key
@@ -1188,9 +1390,19 @@
                 if (e.key === 'Escape') {
                     closeAddModal();
                     closeEditModal();
+                    closeViewModal();
                 }
             });
+
+
         </script>
+        <!-- Global Loader -->
+        <div id="globalLoader"
+            class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-[100] flex flex-col items-center justify-center text-white">
+            <div class="w-12 h-12 border-4 border-white/10 border-l-purple-500 rounded-full animate-spin mb-4">
+            </div>
+            <p class="text-lg font-medium">Exporting data, please wait...</p>
+        </div>
     </body>
 
     </html>

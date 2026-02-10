@@ -2,16 +2,14 @@ package demo.servlet;
 
 import com.google.gson.Gson;
 import demo.dal.StudentDAL;
+import demo.model.Student;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet("/delete-student")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/add-student")
+public class AddServlet extends HttpServlet {
 
     private final StudentDAL dal = new StudentDAL();
     private final Gson gson = new Gson();
@@ -21,26 +19,17 @@ public class DeleteServlet extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
 
         try {
-            int studentId = Integer.parseInt(req.getParameter("id"));
-            boolean deleted = dal.deleteStudent(studentId);
-
-            Map<String, String> response = new HashMap<>();
-            if (deleted) {
-                response.put("status", "success");
-            } else {
-                response.put("status", "error");
-            }
-            out.print(gson.toJson(response));
-
+            Student s = gson.fromJson(req.getReader(), Student.class);
+            int id = dal.addStudent(s);
+            s.setId(id);
+            resp.getWriter().write(gson.toJson(s));
         } catch (Exception e) {
             e.printStackTrace();
             resp.setStatus(500);
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", escape(e.getMessage() != null ? e.getMessage() : "Unknown Error"));
-            out.print(gson.toJson(errorResponse));
+            resp.getWriter().write(
+                    "{\"error\": \"" + escape(e.getMessage() != null ? e.getMessage() : "Unknown Error") + "\"}");
         }
     }
 
